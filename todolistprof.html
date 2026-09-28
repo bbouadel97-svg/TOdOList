@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Ma To-Do List</title>
+   <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+
+   <main>
+       <h1>Ma To-Do List</h1>
+
+
+       <div class="formulaire">
+           <input type="text" id="tache" placeholder="Nom de la tâche" required>
+
+
+           <select id="difficulte">
+               <option value="Facile">Facile</option>
+               <option value="Moyenne">Moyenne</option>
+               <option value="Difficile">Difficile</option>
+           </select>
+
+
+           <input type="number" id="temps" placeholder="Temps en minutes" min="1" step="1" required>
+
+
+           <button id="ajouter">Ajouter</button>
+
+
+       </div>
+
+
+       <div id="liste"></div>
+   </main>
+
+
+   <script>
+       const boutonAjouter = document.querySelector("#ajouter");
+       const liste = document.querySelector("#liste");
+       const listeTaches = [];
+       const champTache = document.querySelector("#tache");
+       const champDifficulte = document.querySelector("#difficulte");
+       const champTemps = document.querySelector("#temps");
+
+       boutonAjouter.addEventListener("click", function () {
+           const nomTache = champTache.value.trim();
+           const difficulte = champDifficulte.value;
+           const temps = Number(champTemps.value);
+
+           if (!nomTache || !Number.isInteger(temps) || temps <= 0) {
+               alert("Merci de saisir une tâche et une durée entière supérieure à zéro.");
+               return;
+           }
+
+           const tacheExiste = listeTaches.some(function (tache) {
+               return tache.nom === nomTache;
+           });
+
+           if (tacheExiste) {
+               alert("Cette tâche existe déjà dans la liste.");
+               return;
+           }
+
+           const nouvelleTacheObjet = {
+               nom: nomTache,
+               difficulte: difficulte,
+               temps: temps
+           };
+
+           listeTaches.push(nouvelleTacheObjet);
+
+           const nouvelleTache = document.createElement("div");
+           nouvelleTache.classList.add("tacheAjouteListe");
+
+           const nom = document.createElement("strong");
+           nom.textContent = nomTache;
+
+           const infos = document.createElement("div");
+           infos.classList.add("infos");
+
+           const difficulteElement = document.createElement("span");
+           difficulteElement.textContent = difficulte;
+
+           const tempsElement = document.createElement("span");
+           tempsElement.textContent = `${temps} min`;
+
+           infos.append(difficulteElement, tempsElement);
+           nouvelleTache.append(nom, infos);
+           liste.appendChild(nouvelleTache);
+
+           champTache.value = "";
+           champTemps.value = "";
+           alert("Votre tâche a été ajoutée avec succès !");
+       });
+   </script>
+</body>
+</html>

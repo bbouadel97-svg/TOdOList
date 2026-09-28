@@ -5,96 +5,74 @@
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>Ma To-Do List</title>
    <link rel="stylesheet" href="style.css">
+   <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+   <link rel="icon" href="images/logo.png" type="image/x-icon">
+
+   
 </head>
+
+<script>
+    const bouton = document.getElementById('toggle-btn');
+    if (bouton) {
+        bouton.addEventListener('click', () => {
+            const sectionDroite = document.querySelector('.droite');
+            sectionDroite.classList.toggle('hidden');
+        });
+    }
+</script>
 <body>
-
-
+        <header>
+               <h1>Ma To-Do List</h1>
+               <img src="images/logo.png" alt="Logo">
+    </header>
    <main>
-       <h1>Ma To-Do List</h1>
 
+    
+    <section class="gauche">
+        <h2>Tranches d'âge</h2>
+        <label for="Tranche d'age">Choisissez une tranche&nbsp;:</label>
 
-       <div class="formulaire">
-           <input type="text" id="tache" placeholder="Nom de la tâche" required>
+        <select name="tranche" id="age-select">
+            <option value="">--Veuillez choisir une option--</option>
+            <option value="6-10">6-10 ans</option>
+            <option value="11-15">11-15 ans</option>
+            <option value="16-25">16-25 ans</option>
+            <option value="26-60">26-60 ans</option>
+            <option value="+60">60+ ans</option>
+        </select>
 
+        <article class="profil">
+            <img src="images/adulte.png" alt="Adulte">
+            <h2>Adulte</h2>
+        </article>
 
-           <select id="difficulte">
-               <option value="Facile">Facile</option>
-               <option value="Moyenne">Moyenne</option>
-               <option value="Difficile">Difficile</option>
-           </select>
+        <article class="profil">
+            <img src="images/child.png" alt="Child">
+            <h2>Child</h2>
+        </article>
 
+    </section>
 
-           <input type="number" id="temps" placeholder="Temps en minutes" min="1" step="1" required>
+    <section class="centre">    
+        <h2>Tasks</h2>
+        <ul>
 
+            <li>Ranger sa chambre</li>
+            <li>Faire les devoirs</li>
+            <li>Monter le linge</li>
 
-           <button id="ajouter">Ajouter</button>
-
-
-       </div>
-
-
-       <div id="liste"></div>
+        </ul>
+    </section>
+    <section class="droite">
+        <h2>Ajouter une tâche</h2>
+        <button>Add New Task</button>
+        <input type="text" placeholder="New Task">
+        <button class="btn-plus" aria-label="Ajouter">+</button>
+    </section>
+    
    </main>
-
-
-   <script>
-       const boutonAjouter = document.querySelector("#ajouter");
-       const liste = document.querySelector("#liste");
-       const listeTaches = [];
-       const champTache = document.querySelector("#tache");
-       const champDifficulte = document.querySelector("#difficulte");
-       const champTemps = document.querySelector("#temps");
-
-       boutonAjouter.addEventListener("click", function () {
-           const nomTache = champTache.value.trim();
-           const difficulte = champDifficulte.value;
-           const temps = Number(champTemps.value);
-
-           if (!nomTache || !Number.isInteger(temps) || temps <= 0) {
-               alert("Merci de saisir une tâche et une durée entière supérieure à zéro.");
-               return;
-           }
-
-           const tacheExiste = listeTaches.some(function (tache) {
-               return tache.nom === nomTache;
-           });
-
-           if (tacheExiste) {
-               alert("Cette tâche existe déjà dans la liste.");
-               return;
-           }
-
-           const nouvelleTacheObjet = {
-               nom: nomTache,
-               difficulte: difficulte,
-               temps: temps
-           };
-
-           listeTaches.push(nouvelleTacheObjet);
-
-           const nouvelleTache = document.createElement("div");
-           nouvelleTache.classList.add("tacheAjouteListe");
-
-           const nom = document.createElement("strong");
-           nom.textContent = nomTache;
-
-           const infos = document.createElement("div");
-           infos.classList.add("infos");
-
-           const difficulteElement = document.createElement("span");
-           difficulteElement.textContent = difficulte;
-
-           const tempsElement = document.createElement("span");
-           tempsElement.textContent = `${temps} min`;
-
-           infos.append(difficulteElement, tempsElement);
-           nouvelleTache.append(nom, infos);
-           liste.appendChild(nouvelleTache);
-
-           champTache.value = "";
-           champTemps.value = "";
-           alert("Votre tâche a été ajoutée avec succès !");
-       });
-   </script>
 </body>
 </html>
+
+
+  

@@ -60,7 +60,15 @@
         <input type="text" id="nouvelle-tache" placeholder="Nouvelle tâche" aria-label="Nouvelle tâche">
         <input type="text" id="nom" placeholder="Nom" aria-label="Nom">
         <input type="number" id="temps" placeholder="Temps" aria-label="Temps">
-        <input type="number" id="difficulte" placeholder="Difficulté (âge)" aria-label="Difficulté (âge)">
+        <select name="tranche" id="age">
+            <option value="">--Veuillez choisir une tranche d'âge--</option>
+            <option value="6-10">6-10 ans</option>
+            <option value="11-15">11-15 ans</option>
+            <option value="16-25">16-25 ans</option>
+            <option value="26-60">26-60 ans</option>
+            <option value="+60">60+ ans</option>
+        </select>
+
         <button type="button" class="btn-plus" aria-label="Ajouter">+</button>
     </section>
 
@@ -74,7 +82,7 @@
        const inputDifficulte = document.querySelector('#difficulte');
        const inputAge = document.querySelector('#age');
 
-       function ajouterTache() // cette fonction ajoute une nouvelle tâche à la liste
+       function ajouterTache() 
        {
            const nouvelleTache = inputNouvelleTache.value.trim();
            if (nouvelleTache === '')

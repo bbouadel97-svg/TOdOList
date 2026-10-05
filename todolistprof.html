@@ -10,16 +10,6 @@
 
    
 </head>
-
-<script>
-    const bouton = document.getElementById('toggle-btn');
-    if (bouton) {
-        bouton.addEventListener('click', () => {
-            const sectionDroite = document.querySelector('.droite');
-            sectionDroite.classList.toggle('hidden');
-        });
-    }
-</script>
 <body>
         <header>
                <h1>Ma To-Do List</h1>
@@ -60,17 +50,56 @@
             <li>Ranger sa chambre</li>
             <li>Faire les devoirs</li>
             <li>Monter le linge</li>
+            
 
         </ul>
     </section>
     <section class="droite">
         <h2>Ajouter une tâche</h2>
-        <button>Add New Task</button>
-        <input type="text" placeholder="New Task">
-        <button class="btn-plus" aria-label="Ajouter">+</button>
+        <button type="button">Ajouter une tâche</button>
+        <input type="text" id="nouvelle-tache" placeholder="Nouvelle tâche" aria-label="Nouvelle tâche">
+        <input type="text" id="nom" placeholder="Nom" aria-label="Nom">
+        <input type="number" id="temps" placeholder="Temps" aria-label="Temps">
+        <input type="number" id="difficulte" placeholder="Difficulté (âge)" aria-label="Difficulté (âge)">
+        <button type="button" class="btn-plus" aria-label="Ajouter">+</button>
     </section>
-    
-   </main>
+
+   <script>
+
+       const listeTaches = document.querySelector('.centre ul');
+       const boutonAjouter = document.querySelector('section.droite button[type="button"]:not(.btn-plus)');
+       const inputNouvelleTache = document.querySelector('#nouvelle-tache');
+       const inputNom = document.querySelector('#nom');
+       const inputTemps = document.querySelector('#temps');
+       const inputDifficulte = document.querySelector('#difficulte');
+       const inputAge = document.querySelector('#age');
+
+       function ajouterTache() // cette fonction ajoute une nouvelle tâche à la liste
+       {
+           const nouvelleTache = inputNouvelleTache.value.trim();
+           if (nouvelleTache === '')
+           {
+               inputNouvelleTache.focus();
+               return;
+           }
+
+           const element = document.createElement('li');
+           element.textContent = nouvelleTache;
+           listeTaches.appendChild(element);
+           inputNouvelleTache.value = '';
+           inputNouvelleTache.focus();
+       }
+
+       boutonAjouter.addEventListener('click', ajouterTache);
+       inputNouvelleTache.addEventListener('keydown', evenement =>
+       {
+           if (evenement.key === 'Enter')
+            {
+               ajouterTache();
+            }
+       });
+
+   </script>
 </body>
 </html>
 
